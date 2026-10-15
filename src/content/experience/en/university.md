@@ -1,9 +1,8 @@
 ---
-# MOCK: sample education.
-role: B.Sc. in Systems Engineering
-org: Example University
+role: Systems Engineering (7th term)
+org: National University of Engineering (UNI)
 type: education
-start: 2019-02-01
-end: 2023-12-15
-summary: Studied algorithms, databases, software engineering and web development. Thesis on accessible web applications.
+start: 2023-08-01
+location: Lima, Peru
+summary: Top fifth of the class in the 2026-1 term. Certifications in Intermediate Power BI (UNI) and Intermediate Excel.
 ---

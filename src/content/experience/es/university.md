@@ -1,9 +1,8 @@
 ---
-# MOCK: formación de ejemplo.
-role: Ingeniería de Sistemas
-org: Universidad Ejemplo
+role: Ingeniería de Sistemas (séptimo ciclo)
+org: Universidad Nacional de Ingeniería (UNI)
 type: education
-start: 2019-02-01
-end: 2023-12-15
-summary: Formación en algoritmos, bases de datos, ingeniería de software y desarrollo web. Proyecto de grado sobre aplicaciones web accesibles.
+start: 2023-08-01
+location: Lima, Perú
+summary: Quinto superior en el ciclo 2026-1. Certificaciones en Power BI Intermedio (UNI) y Excel Intermedio.
 ---
