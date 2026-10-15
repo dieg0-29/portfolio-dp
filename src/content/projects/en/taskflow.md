@@ -1,5 +1,5 @@
 ---
-# MOCK: sample project, replace it with a real one.
+# MOCK: sample project, to be replaced with a real one.
 title: TaskFlow
 summary: Collaborative Kanban task manager with real-time boards, roles and notifications.
 status: done

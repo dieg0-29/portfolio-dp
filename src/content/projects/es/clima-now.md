@@ -1,5 +1,5 @@
 ---
-# MOCK: proyecto de ejemplo, reemplázalo por uno real.
+# MOCK: proyecto de ejemplo, pendiente de reemplazo por uno real.
 title: Clima Now
 summary: PWA del clima con pronóstico por horas, búsqueda de ciudades y modo sin conexión.
 status: done

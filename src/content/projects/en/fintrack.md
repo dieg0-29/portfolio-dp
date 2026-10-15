@@ -1,5 +1,5 @@
 ---
-# MOCK: sample project, replace it with a real one.
+# MOCK: sample project, to be replaced with a real one.
 title: Fintrack
 summary: Personal finance app to log expenses, set budgets and visualize spending trends.
 status: in-progress

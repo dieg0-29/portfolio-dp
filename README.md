@@ -1,57 +1,57 @@
 # Portafolio · Diego Pinedo
 
-Portafolio personal bilingüe (ES/EN) construido con **Astro** y **Tailwind CSS**. Rápido, accesible y fácil de mantener: los proyectos y la experiencia son archivos Markdown.
+Portafolio personal bilingüe (español e inglés) construido con **Astro** y **Tailwind CSS**. El sitio es estático, accesible y de fácil mantenimiento: los proyectos y la experiencia se gestionan como archivos Markdown.
 
 ## Comandos
 
-| Comando           | Acción                                              |
-| ----------------- | --------------------------------------------------- |
-| `npm install`     | Instala dependencias                                |
-| `npm run dev`     | Servidor local en `http://localhost:4321`           |
-| `npm run build`   | Verifica tipos/contenido y genera el sitio en `dist/` |
-| `npm run preview` | Sirve la build de producción localmente             |
+| Comando           | Acción                                                          |
+| ----------------- | --------------------------------------------------------------- |
+| `npm install`     | Instalar las dependencias.                                      |
+| `npm run dev`     | Iniciar el servidor local en `http://localhost:4321`.           |
+| `npm run build`   | Verificar tipos y contenido, y generar el sitio en `dist/`.     |
+| `npm run preview` | Servir localmente la versión de producción.                     |
 
 ## Estructura
 
 ```
 src/
-├─ assets/mock/          # Imágenes de ejemplo (avatar y proyectos), reemplazar
+├─ assets/mock/          # Imágenes provisionales (avatar y proyectos)
 ├─ components/
 │  ├─ sections/          # Hero, About, Skills, Projects, Experience, Contact
 │  ├─ ui/                # Icon, Skeleton, SmartImage, SectionHeading, StatusBadge
 │  └─ ...                # Header, Footer, ProjectCard, ProjectDetail, Home
 ├─ content/
-│  ├─ projects/{es,en}/  # Un .md por proyecto y por idioma
+│  ├─ projects/{es,en}/  # Un archivo .md por proyecto y por idioma
 │  └─ experience/{es,en}/
-├─ data/site.ts          # Nombre, rol, bio, redes, CV y habilidades
-├─ i18n/ui.ts            # Textos de la interfaz en ES y EN
+├─ data/site.ts          # Nombre, rol, biografía, redes, CV y habilidades
+├─ i18n/ui.ts            # Textos de la interfaz en español e inglés
 ├─ layouts/BaseLayout.astro
 ├─ pages/                # / (ES), /en/ (EN) y /projects/[slug]
 └─ styles/global.css     # Paleta de colores (tokens claro/oscuro) y estilos base
 public/
-├─ cv/                   # CV en PDF (ES y EN), reemplazar
-├─ og.png                # Imagen para compartir en redes
+├─ cv/                   # CV en PDF (ES y EN), provisionales
+├─ og.png                # Imagen de vista previa para redes sociales
 └─ favicon.svg
 ```
 
-## Reemplazar el contenido de ejemplo
+## Reemplazo del contenido provisional
 
-Todo lo provisional está marcado con `MOCK` en el código.
+Todo el contenido provisional está marcado con `MOCK` en el código.
 
-1. **Datos personales:** edita `src/data/site.ts` (correo, LinkedIn, ubicación, bio, idiomas y habilidades).
-2. **Foto de perfil:** copia tu foto a `src/assets/` (p. ej. `profile.jpg`, idealmente cuadrada, ≥ 640 px) y cambia el `import avatar` en `src/data/site.ts`. Astro la optimiza automáticamente.
-3. **CV:** reemplaza `public/cv/cv-diego-pinedo-es.pdf` y `public/cv/cv-diego-pinedo-en.pdf` (mismos nombres).
-4. **Proyectos y experiencia:** reemplaza los archivos de `src/content/` (ver abajo).
-5. **Dominio:** cuando tengas la URL final, actualiza `site` en `astro.config.mjs` y la línea `Sitemap` de `public/robots.txt`.
+1. **Datos personales:** editar `src/data/site.ts` (correo, LinkedIn, ubicación, biografía, idiomas y habilidades).
+2. **Foto de perfil:** copiar la imagen en `src/assets/` (por ejemplo, `profile.jpg`; se recomienda formato cuadrado de al menos 640 px) y actualizar el `import avatar` de `src/data/site.ts`. Astro optimiza la imagen automáticamente.
+3. **CV:** reemplazar `public/cv/cv-diego-pinedo-es.pdf` y `public/cv/cv-diego-pinedo-en.pdf`, conservando los mismos nombres.
+4. **Proyectos y experiencia:** reemplazar los archivos de `src/content/` (véase la sección siguiente).
+5. **Dominio:** una vez definida la URL final, actualizar `site` en `astro.config.mjs` y la línea `Sitemap` de `public/robots.txt`.
 
-## Agregar un proyecto
+## Incorporación de un proyecto
 
-Crea el mismo archivo en ambos idiomas, por ejemplo `src/content/projects/es/mi-app.md` y `src/content/projects/en/mi-app.md`:
+Crear el mismo archivo en ambos idiomas, por ejemplo `src/content/projects/es/mi-app.md` y `src/content/projects/en/mi-app.md`:
 
 ```md
 ---
 title: Mi App
-summary: Una línea que explique qué hace y para quién.
+summary: Descripción breve, en una línea, del propósito y el público del proyecto.
 status: in-progress        # done | in-progress
 year: 2026
 tech: [React, TypeScript, Node.js]
@@ -59,8 +59,8 @@ image: ../../../assets/projects/mi-app.png
 imageAlt: Captura de la pantalla principal de Mi App
 demo: https://mi-app.vercel.app   # opcional
 repo: https://github.com/dieg0-29/mi-app   # opcional
-featured: true             # aparece primero con la etiqueta "Destacado"
-order: 1                   # menor = más arriba
+featured: true             # se muestra primero, con la etiqueta "Destacado"
+order: 1                   # un valor menor implica una posición más alta
 ---
 
 ## El problema
@@ -70,24 +70,25 @@ order: 1                   # menor = más arriba
 ...
 ```
 
-El contenido Markdown se muestra en la página de detalle (`/projects/mi-app/`). Si falta un campo o tiene un formato incorrecto, `npm run build` lo indica.
+El cuerpo en Markdown se muestra en la página de detalle (`/projects/mi-app/`). Si falta un campo obligatorio o su formato es incorrecto, `npm run build` informa del error.
 
-La experiencia funciona igual en `src/content/experience/{es,en}/` (`role`, `org`, `type: work | education`, `start`, `end` opcional = actualidad, `summary`, `tech`).
+La experiencia se gestiona del mismo modo en `src/content/experience/{es,en}/`, con los campos `role`, `org`, `type` (`work` o `education`), `start`, `end` (opcional; su ausencia indica que el puesto continúa vigente), `summary` y `tech`.
 
-## Diseño y UX
+## Diseño y experiencia de usuario
 
-- **Paleta fría** (azul noche, cian e índigo) definida como variables CSS en `src/styles/global.css`; cambia ahí los colores de ambos temas.
-- **Tema oscuro por defecto** con botón para cambiar a claro (se recuerda la preferencia).
-- **Skeletons** con efecto shimmer mientras cargan las imágenes, que luego aparecen con fade-in; el espacio está reservado para que no haya saltos de diseño.
-- Navegación fija con indicador de la sección activa, menú móvil, animaciones de entrada sutiles (desactivadas con `prefers-reduced-motion`), enlace "saltar al contenido", contraste AA y navegación por teclado.
+- **Paleta fría** (azul noche, cian e índigo), definida como variables CSS en `src/styles/global.css`, donde se configuran los colores de ambos temas.
+- **Tema oscuro por defecto**, con un control para cambiar al tema claro; la preferencia se conserva entre visitas.
+- **Skeletons** con efecto shimmer durante la carga de imágenes, que luego aparecen con una transición de opacidad. El espacio de cada imagen se reserva de antemano para evitar desplazamientos del diseño.
+- Navegación fija con indicador de la sección activa, menú para dispositivos móviles, animaciones de entrada sutiles (desactivadas con `prefers-reduced-motion`), enlace para saltar al contenido, contraste AA y navegación completa por teclado.
 
 ## Despliegue en Vercel
 
-1. Entra en [vercel.com/new](https://vercel.com/new) e importa el repositorio `dieg0-29/portfolio-dp`.
-2. Vercel detecta Astro automáticamente; no hace falta configurar nada (sitio estático, sin adaptador).
-3. Cada `git push` a `main` vuelve a desplegar el sitio.
+1. Acceder a [vercel.com/new](https://vercel.com/new) e importar el repositorio `dieg0-29/portfolio-dp`.
+2. Vercel detecta Astro automáticamente; no se requiere configuración adicional (sitio estático, sin adaptador).
+3. Cada `git push` a la rama `main` genera un nuevo despliegue.
 
 ## Convenciones
 
-- Se usa [Conventional Commits](https://www.conventionalcommits.org/es/): `feat`, `fix`, `style`, `refactor`, `docs`, `chore`, y `feat(content)` para cambios de proyectos o experiencia. Ejemplo: `feat(content): add mi-app project`.
-- No se usan emojis en el código, los comentarios, la documentación ni el contenido.
+- Los mensajes de commit siguen [Conventional Commits](https://www.conventionalcommits.org/es/): `feat`, `fix`, `style`, `refactor`, `docs`, `chore`, y `feat(content)` para cambios en proyectos o experiencia. Ejemplo: `feat(content): add mi-app project`.
+- No se utilizan emojis en el código, los comentarios, la documentación ni el contenido.
+- La documentación se redacta en registro formal, en presente de indicativo o infinitivo, y en tercera persona o forma impersonal.

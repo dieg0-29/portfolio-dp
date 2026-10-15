@@ -1,5 +1,5 @@
 ---
-# MOCK: proyecto de ejemplo, reemplázalo por uno real.
+# MOCK: proyecto de ejemplo, pendiente de reemplazo por uno real.
 title: DevNotes API
 summary: API REST para notas técnicas con autenticación JWT, etiquetas, búsqueda y documentación OpenAPI.
 status: done

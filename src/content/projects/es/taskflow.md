@@ -1,5 +1,5 @@
 ---
-# MOCK: proyecto de ejemplo, reemplázalo por uno real.
+# MOCK: proyecto de ejemplo, pendiente de reemplazo por uno real.
 title: TaskFlow
 summary: Gestor de tareas colaborativo tipo Kanban con tableros en tiempo real, roles y notificaciones.
 status: done

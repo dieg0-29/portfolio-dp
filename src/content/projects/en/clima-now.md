@@ -1,5 +1,5 @@
 ---
-# MOCK: sample project, replace it with a real one.
+# MOCK: sample project, to be replaced with a real one.
 title: Clima Now
 summary: Weather PWA with hourly forecasts, city search and offline mode.
 status: done

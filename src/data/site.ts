@@ -1,8 +1,8 @@
 /**
  * Datos personales del portafolio.
- * Importante: los valores marcados con MOCK son de ejemplo: reemplázalos por los tuyos.
+ * Los valores marcados con MOCK son provisionales y deben reemplazarse por los definitivos.
  */
-import avatar from '../assets/mock/avatar.svg'; // MOCK: reemplaza por tu foto (p. ej. ../assets/profile.jpg)
+import avatar from '../assets/mock/avatar.svg'; // MOCK: reemplazar por la foto de perfil (p. ej. ../assets/profile.jpg)
 
 export type Localized = { es: string; en: string };
 
@@ -14,18 +14,18 @@ export const site = {
     es: 'Diseño y desarrollo aplicaciones web de punta a punta, cuidando el rendimiento, la accesibilidad y la experiencia de quien las usa.',
     en: 'I design and build end-to-end web applications, with a focus on performance, accessibility and user experience.',
   } satisfies Localized,
-  email: 'tu-correo@ejemplo.com', // MOCK
+  email: 'correo@ejemplo.com', // MOCK
   socials: {
     github: 'https://github.com/dieg0-29',
-    linkedin: 'https://www.linkedin.com/in/tu-usuario', // MOCK
+    linkedin: 'https://www.linkedin.com/in/usuario', // MOCK
   },
   cv: {
-    es: '/cv/cv-diego-pinedo-es.pdf', // MOCK: reemplaza el PDF en public/cv/
+    es: '/cv/cv-diego-pinedo-es.pdf', // MOCK: reemplazar los PDF en public/cv/
     en: '/cv/cv-diego-pinedo-en.pdf',
   } satisfies Localized,
   available: true,
   about: {
-    // MOCK: cuenta tu historia en 2–3 párrafos cortos.
+    // MOCK: biografía de 2 a 3 párrafos cortos.
     es: [
       'Soy desarrollador full-stack con experiencia creando aplicaciones web modernas, desde la interfaz hasta la API y la base de datos. Me gusta transformar problemas complejos en productos simples e intuitivos.',
       'Trabajo principalmente con TypeScript, React, Astro y Node.js. Me importan el código limpio, las buenas prácticas de UI/UX y que cada proyecto se sienta rápido y cuidado en cualquier dispositivo.',
@@ -45,7 +45,7 @@ export const site = {
   ] as const,
 } as const;
 
-/** MOCK: ajusta las categorías y tecnologías a tu stack real. */
+/** Habilidades agrupadas por categoría. MOCK: ajustar al stack tecnológico real. */
 export const skills: { title: Localized; icon: 'layout' | 'server' | 'database' | 'wrench'; items: string[] }[] = [
   {
     title: { es: 'Frontend', en: 'Frontend' },

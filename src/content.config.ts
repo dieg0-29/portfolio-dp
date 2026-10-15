@@ -6,7 +6,7 @@ import { z } from 'astro/zod';
  * Proyectos: un archivo Markdown por proyecto y por idioma.
  *   src/content/projects/es/mi-proyecto.md
  *   src/content/projects/en/mi-proyecto.md
- * Usa el mismo nombre de archivo en ambos idiomas.
+ * El nombre de archivo debe coincidir en ambos idiomas.
  */
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),

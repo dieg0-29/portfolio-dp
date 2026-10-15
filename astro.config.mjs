@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  // Cambia esta URL por tu dominio final (por ejemplo, el que te asigne Vercel).
+  // URL pública del sitio. Reemplazar por el dominio definitivo (por ejemplo, el asignado por Vercel).
   site: 'https://portfolio-dp.vercel.app',
   i18n: {
     locales: ['es', 'en'],
