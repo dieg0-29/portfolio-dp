@@ -1,0 +1,9 @@
+---
+/** Bloque de carga con efecto shimmer. Decorativo: oculto a lectores de pantalla. */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<div class:list={['skeleton', className]} aria-hidden="true"></div>
