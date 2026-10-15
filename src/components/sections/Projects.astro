@@ -1,0 +1,92 @@
+---
+import ProjectCard from '../ProjectCard.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { useTranslations, type Lang } from '../../i18n/ui';
+import type { Project } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+  projects: Project[];
+}
+
+const { lang, projects } = Astro.props;
+const t = useTranslations(lang);
+
+const count = (status?: string) => projects.filter((p) => !status || p.data.status === status).length;
+const filters = [
+  { value: 'all', label: t('projects.filterAll'), n: count() },
+  { value: 'done', label: t('projects.filterDone'), n: count('done') },
+  { value: 'in-progress', label: t('projects.filterProgress'), n: count('in-progress') },
+];
+---
+
+<section id="projects" class="border-t border-line/70 bg-surface/40" aria-labelledby="projects-title">
+  <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 md:py-28">
+    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <SectionHeading
+        id="projects-title"
+        eyebrow={t('projects.eyebrow')}
+        title={t('projects.title')}
+        subtitle={t('projects.subtitle')}
+      />
+      <div
+        role="group"
+        aria-label={t('projects.filterLabel')}
+        class="mb-10 grid w-full grid-cols-3 gap-1 rounded-xl border border-line bg-surface p-1 sm:inline-flex sm:w-fit md:mb-14"
+        data-reveal
+      >
+        {
+          filters.map((f, i) => (
+            <button
+              type="button"
+              data-filter={f.value}
+              aria-pressed={i === 0 ? 'true' : 'false'}
+              class="inline-flex h-10 items-center justify-center gap-1.5 rounded-lg px-2 text-sm whitespace-nowrap sm:gap-2 sm:px-4 font-medium text-muted transition-colors hover:text-fg aria-pressed:bg-surface-2 aria-pressed:text-fg aria-pressed:shadow-sm"
+            >
+              {f.label}
+              <span class="rounded-md bg-bg/60 px-1.5 text-xs tabular-nums">{f.n}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <p class="sr-only" aria-live="polite" id="projects-status" data-template={t('projects.showing')}></p>
+
+    <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" id="projects-grid" data-reveal>
+      {
+        projects.map((project) => (
+          <li data-status={project.data.status} class="project-item">
+            <ProjectCard project={project} lang={lang} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const items = document.querySelectorAll<HTMLElement>('#projects-grid .project-item');
+  const status = document.getElementById('projects-status');
+
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      let visible = 0;
+      items.forEach((item) => {
+        const show = filter === 'all' || item.dataset.status === filter;
+        item.hidden = !show;
+        if (show) {
+          visible++;
+          item.animate?.([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], {
+            duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 280,
+            easing: 'ease-out',
+          });
+        }
+      });
+      if (status) status.textContent = (status.dataset.template ?? '').replace('{n}', String(visible));
+    }),
+  );
+</script>

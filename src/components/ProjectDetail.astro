@@ -1,0 +1,91 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from './ui/Icon.astro';
+import SmartImage from './ui/SmartImage.astro';
+import StatusBadge from './ui/StatusBadge.astro';
+import { localizePath, useTranslations, type Lang } from '../i18n/ui';
+import type { Project } from '../lib/content';
+
+interface Props {
+  project: Project;
+  lang: Lang;
+}
+
+const { project, lang } = Astro.props;
+const t = useTranslations(lang);
+const { title, summary, status, year, tech, image, imageAlt, demo, repo } = project.data;
+const { Content } = await render(project);
+const btn =
+  'inline-flex h-11 items-center gap-2 rounded-xl border border-line bg-surface px-5 font-semibold text-fg transition-all hover:-translate-y-0.5 hover:border-accent/60 active:translate-y-0';
+---
+
+<BaseLayout lang={lang} title={title} description={summary}>
+  <article class="mx-auto max-w-4xl px-5 py-12 sm:px-8 md:py-16">
+    <a
+      href={`${localizePath('/', lang)}#projects`}
+      class="group mb-8 inline-flex h-10 items-center gap-2 rounded-lg pr-3 text-sm font-medium text-muted transition-colors hover:text-fg"
+    >
+      <Icon name="arrow-left" size={16} class="transition-transform group-hover:-translate-x-0.5" />
+      {t('projects.back')}
+    </a>
+
+    <header data-reveal>
+      <div class="flex flex-wrap items-center gap-3">
+        <StatusBadge status={status} lang={lang} />
+        <span class="text-sm text-muted tabular-nums">{year}</span>
+      </div>
+      <h1 class="mt-4 text-4xl font-extrabold text-balance md:text-5xl">{title}</h1>
+      <p class="mt-4 max-w-2xl text-xl text-pretty text-muted">{summary}</p>
+
+      {
+        (demo || repo) && (
+          <div class="mt-8 flex flex-wrap gap-3">
+            {demo && (
+              <a
+                href={demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex h-11 items-center gap-2 rounded-xl bg-linear-to-r from-accent to-accent-2 px-5 font-semibold text-accent-fg shadow-[0_8px_30px_var(--glow)] transition-all hover:-translate-y-0.5 active:translate-y-0"
+              >
+                <Icon name="external" size={18} />
+                {t('projects.demo')}
+              </a>
+            )}
+            {repo && (
+              <a href={repo} target="_blank" rel="noopener noreferrer" class={btn}>
+                <Icon name="github" size={18} />
+                {t('projects.code')}
+              </a>
+            )}
+          </div>
+        )
+      }
+    </header>
+
+    <SmartImage
+      src={image}
+      alt={imageAlt}
+      loading="eager"
+      widths={[640, 960, 1200]}
+      sizes="(min-width: 896px) 832px, 92vw"
+      class="mt-10 aspect-[16/10] rounded-2xl border border-line bg-surface-2"
+    />
+
+    <div class="mt-12 grid gap-10 md:grid-cols-[1fr_220px]">
+      <div class="prose-content" data-reveal>
+        <Content />
+      </div>
+      <aside class="md:order-last" data-reveal>
+        <h2 class="mb-3 text-sm font-semibold tracking-widest text-accent uppercase">{t('projects.stack')}</h2>
+        <ul class="flex flex-wrap gap-2">
+          {
+            tech.map((item) => (
+              <li class="rounded-lg border border-line bg-surface px-2.5 py-1 text-sm text-muted">{item}</li>
+            ))
+          }
+        </ul>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>
