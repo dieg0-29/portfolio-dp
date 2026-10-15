@@ -1,0 +1,93 @@
+---
+import Icon from '../ui/Icon.astro';
+import { site } from '../../data/site';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const secondary =
+  'inline-flex h-12 items-center gap-2 rounded-xl border border-line bg-surface px-5 font-semibold text-fg transition-all hover:-translate-y-0.5 hover:border-accent/60 active:translate-y-0';
+---
+
+<section id="contact" class="border-t border-line/70 bg-surface/40" aria-labelledby="contact-title">
+  <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 md:py-28">
+    <div
+      class="relative isolate overflow-hidden rounded-3xl border border-line bg-surface px-6 py-14 text-center sm:px-12 md:py-20"
+      data-reveal
+    >
+      <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div class="absolute -top-32 left-1/2 h-72 w-[640px] -translate-x-1/2 rounded-full bg-accent/15 blur-3xl"></div>
+        <div class="absolute -right-24 -bottom-32 h-72 w-72 rounded-full bg-accent-2/15 blur-3xl"></div>
+      </div>
+
+      <p class="text-sm font-semibold tracking-widest text-accent uppercase">{t('contact.eyebrow')}</p>
+      <h2 id="contact-title" class="mt-3 text-3xl font-bold text-balance md:text-5xl">{t('contact.title')}</h2>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-pretty text-muted">{t('contact.subtitle')}</p>
+
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+        <a
+          href={`mailto:${site.email}`}
+          class="inline-flex h-12 items-center gap-2 rounded-xl bg-linear-to-r from-accent to-accent-2 px-6 font-semibold text-accent-fg shadow-[0_8px_30px_var(--glow)] transition-all hover:-translate-y-0.5 active:translate-y-0"
+        >
+          <Icon name="mail" size={18} />
+          {t('contact.email')}
+        </a>
+        <button
+          type="button"
+          id="copy-email"
+          data-email={site.email}
+          data-copied={t('contact.copied')}
+          class={secondary}
+        >
+          <Icon name="copy" size={18} class="copy-icon" />
+          <Icon name="check" size={18} class="check-icon hidden text-emerald-400" />
+          <span class="copy-label">{t('contact.copy')}</span>
+        </button>
+      </div>
+      <p class="mt-4 font-mono text-sm text-muted select-all">{site.email}</p>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a href={site.socials.linkedin} target="_blank" rel="noopener noreferrer" class={secondary}>
+          <Icon name="linkedin" size={18} />
+          LinkedIn
+        </a>
+        <a href={site.socials.github} target="_blank" rel="noopener noreferrer" class={secondary}>
+          <Icon name="github" size={18} />
+          GitHub
+        </a>
+        <a href={site.cv[lang]} download class={secondary}>
+          <Icon name="download" size={18} />
+          {t('hero.ctaCv')}
+        </a>
+      </div>
+      <p class="sr-only" aria-live="polite" id="copy-status"></p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const btn = document.getElementById('copy-email');
+  const live = document.getElementById('copy-status');
+  btn?.addEventListener('click', async () => {
+    const label = btn.querySelector('.copy-label');
+    const original = label?.textContent ?? '';
+    try {
+      await navigator.clipboard.writeText(btn.dataset.email ?? '');
+    } catch {
+      return;
+    }
+    btn.querySelector('.copy-icon')?.classList.add('hidden');
+    btn.querySelector('.check-icon')?.classList.remove('hidden');
+    if (label) label.textContent = btn.dataset.copied ?? '';
+    if (live) live.textContent = btn.dataset.copied ?? '';
+    setTimeout(() => {
+      btn.querySelector('.copy-icon')?.classList.remove('hidden');
+      btn.querySelector('.check-icon')?.classList.add('hidden');
+      if (label) label.textContent = original;
+    }, 2000);
+  });
+</script>
