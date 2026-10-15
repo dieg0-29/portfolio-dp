@@ -1,0 +1,41 @@
+---
+import Icon from '../ui/Icon.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { site } from '../../data/site';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const factIcons = ['map-pin', 'layout', 'globe'] as const;
+---
+
+<section id="about" class="border-t border-line/70 bg-surface/40" aria-labelledby="about-title">
+  <div class="mx-auto grid max-w-6xl gap-10 px-5 py-20 sm:px-8 md:py-28 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
+    <div>
+      <SectionHeading id="about-title" eyebrow={t('about.eyebrow')} title={t('about.title')} />
+      <div class="space-y-5 text-lg leading-relaxed text-pretty text-muted" data-reveal>
+        {site.about[lang].map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+
+    <dl class="grid content-start gap-3 self-end" data-reveal>
+      {
+        site.facts.map((f, i) => (
+          <div class="flex items-start gap-4 rounded-2xl border border-line bg-surface p-5 transition-colors hover:border-accent/50">
+            <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent">
+              <Icon name={factIcons[i] ?? 'star'} />
+            </span>
+            <div>
+              <dt class="text-sm text-muted">{t(f.key)}</dt>
+              <dd class="mt-0.5 font-semibold text-fg">{f.value[lang]}</dd>
+            </div>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
