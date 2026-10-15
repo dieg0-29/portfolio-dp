@@ -13,6 +13,9 @@ npm-debug.log*
 .env
 .env.*
 
+# documentos personales (CV original)
+/cv_diego_pinedo.pdf
+
 # OS / editor
 .DS_Store
 Thumbs.db
