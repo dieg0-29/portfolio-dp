@@ -86,9 +86,3 @@ La experiencia se gestiona del mismo modo en `src/content/experience/{es,en}/`, 
 1. Acceder a [vercel.com/new](https://vercel.com/new) e importar el repositorio `dieg0-29/portfolio-dp`.
 2. Vercel detecta Astro automáticamente; no se requiere configuración adicional (sitio estático, sin adaptador).
 3. Cada `git push` a la rama `main` genera un nuevo despliegue.
-
-## Convenciones
-
-- Los mensajes de commit siguen [Conventional Commits](https://www.conventionalcommits.org/es/): `feat`, `fix`, `style`, `refactor`, `docs`, `chore`, y `feat(content)` para cambios en proyectos o experiencia. Ejemplo: `feat(content): add mi-app project`.
-- No se utilizan emojis en el código, los comentarios, la documentación ni el contenido.
-- La documentación se redacta en registro formal, en presente de indicativo o infinitivo, y en tercera persona o forma impersonal.
