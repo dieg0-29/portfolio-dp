@@ -10,7 +10,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const factIcons = ['map-pin', 'layout', 'globe'] as const;
 ---
 
 <section id="about" class="border-t border-line/70 bg-surface/40" aria-labelledby="about-title">
@@ -24,10 +23,10 @@ const factIcons = ['map-pin', 'layout', 'globe'] as const;
 
     <dl class="grid content-start gap-3 self-end" data-reveal>
       {
-        site.facts.map((f, i) => (
+        site.facts.map((f) => (
           <div class="flex items-start gap-4 rounded-2xl border border-line bg-surface p-5 transition-colors hover:border-accent/50">
             <span class="grid size-10 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent">
-              <Icon name={factIcons[i] ?? 'star'} />
+              <Icon name={f.icon} />
             </span>
             <div>
               <dt class="text-sm text-muted">{t(f.key)}</dt>
