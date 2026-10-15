@@ -1,0 +1,41 @@
+---
+import Icon from '../ui/Icon.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { skills } from '../../data/site';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="skills" class="border-t border-line/70" aria-labelledby="skills-title">
+  <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 md:py-28">
+    <SectionHeading id="skills-title" eyebrow={t('skills.eyebrow')} title={t('skills.title')} subtitle={t('skills.subtitle')} />
+
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+      {
+        skills.map((group) => (
+          <article class="group rounded-2xl border border-line bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_12px_40px_var(--glow)]">
+            <div class="mb-5 flex items-center gap-3">
+              <span class="grid size-10 place-items-center rounded-xl bg-linear-to-br from-accent/15 to-accent-2/15 text-accent">
+                <Icon name={group.icon} />
+              </span>
+              <h3 class="text-lg font-semibold">{group.title[lang]}</h3>
+            </div>
+            <ul class="flex flex-wrap gap-2">
+              {group.items.map((item) => (
+                <li class="rounded-lg border border-line bg-surface-2/50 px-2.5 py-1 text-sm text-muted transition-colors group-hover:text-fg">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
