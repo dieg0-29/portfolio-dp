@@ -18,7 +18,7 @@ Ayudar a las personas a entender en qué gastan su dinero con un registro rápid
 
 ## Estado actual
 
-- ✅ Autenticación y registro de movimientos.
-- ✅ Categorías y presupuestos mensuales.
-- 🚧 Panel de estadísticas con gráficos interactivos.
-- 🔜 Importación de extractos bancarios en CSV.
+- **Completado:** autenticación y registro de movimientos.
+- **Completado:** categorías y presupuestos mensuales.
+- **En curso:** panel de estadísticas con gráficos interactivos.
+- **Próximamente:** importación de extractos bancarios en CSV.

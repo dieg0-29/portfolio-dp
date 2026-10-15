@@ -15,7 +15,7 @@ Portafolio personal bilingüe (ES/EN) construido con **Astro** y **Tailwind CSS*
 
 ```
 src/
-├─ assets/mock/          # Imágenes de ejemplo (avatar y proyectos) → reemplazar
+├─ assets/mock/          # Imágenes de ejemplo (avatar y proyectos), reemplazar
 ├─ components/
 │  ├─ sections/          # Hero, About, Skills, Projects, Experience, Contact
 │  ├─ ui/                # Icon, Skeleton, SmartImage, SectionHeading, StatusBadge
@@ -29,12 +29,12 @@ src/
 ├─ pages/                # / (ES), /en/ (EN) y /projects/[slug]
 └─ styles/global.css     # Paleta de colores (tokens claro/oscuro) y estilos base
 public/
-├─ cv/                   # CV en PDF (ES y EN) → reemplazar
+├─ cv/                   # CV en PDF (ES y EN), reemplazar
 ├─ og.png                # Imagen para compartir en redes
 └─ favicon.svg
 ```
 
-## ✏️ Reemplazar el contenido de ejemplo
+## Reemplazar el contenido de ejemplo
 
 Todo lo provisional está marcado con `MOCK` en el código.
 
@@ -44,7 +44,7 @@ Todo lo provisional está marcado con `MOCK` en el código.
 4. **Proyectos y experiencia:** reemplaza los archivos de `src/content/` (ver abajo).
 5. **Dominio:** cuando tengas la URL final, actualiza `site` en `astro.config.mjs` y la línea `Sitemap` de `public/robots.txt`.
 
-## ➕ Agregar un proyecto
+## Agregar un proyecto
 
 Crea el mismo archivo en ambos idiomas, por ejemplo `src/content/projects/es/mi-app.md` y `src/content/projects/en/mi-app.md`:
 
@@ -74,19 +74,20 @@ El contenido Markdown se muestra en la página de detalle (`/projects/mi-app/`).
 
 La experiencia funciona igual en `src/content/experience/{es,en}/` (`role`, `org`, `type: work | education`, `start`, `end` opcional = actualidad, `summary`, `tech`).
 
-## 🎨 Diseño y UX
+## Diseño y UX
 
 - **Paleta fría** (azul noche, cian e índigo) definida como variables CSS en `src/styles/global.css`; cambia ahí los colores de ambos temas.
 - **Tema oscuro por defecto** con botón para cambiar a claro (se recuerda la preferencia).
 - **Skeletons** con efecto shimmer mientras cargan las imágenes, que luego aparecen con fade-in; el espacio está reservado para que no haya saltos de diseño.
 - Navegación fija con indicador de la sección activa, menú móvil, animaciones de entrada sutiles (desactivadas con `prefers-reduced-motion`), enlace "saltar al contenido", contraste AA y navegación por teclado.
 
-## 🚀 Despliegue en Vercel
+## Despliegue en Vercel
 
 1. Entra en [vercel.com/new](https://vercel.com/new) e importa el repositorio `dieg0-29/portfolio-dp`.
 2. Vercel detecta Astro automáticamente; no hace falta configurar nada (sitio estático, sin adaptador).
 3. Cada `git push` a `main` vuelve a desplegar el sitio.
 
-## Convención de commits
+## Convenciones
 
-Se usa [Conventional Commits](https://www.conventionalcommits.org/es/): `feat`, `fix`, `style`, `refactor`, `docs`, `chore`, y `feat(content)` para cambios de proyectos o experiencia. Ejemplo: `feat(content): add mi-app project`.
+- Se usa [Conventional Commits](https://www.conventionalcommits.org/es/): `feat`, `fix`, `style`, `refactor`, `docs`, `chore`, y `feat(content)` para cambios de proyectos o experiencia. Ejemplo: `feat(content): add mi-app project`.
+- No se usan emojis en el código, los comentarios, la documentación ni el contenido.

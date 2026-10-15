@@ -18,7 +18,7 @@ Help people understand where their money goes, with fast expense logging and cle
 
 ## Current status
 
-- ✅ Authentication and transaction logging.
-- ✅ Categories and monthly budgets.
-- 🚧 Statistics dashboard with interactive charts.
-- 🔜 Bank statement import from CSV.
+- **Done:** authentication and transaction logging.
+- **Done:** categories and monthly budgets.
+- **In progress:** statistics dashboard with interactive charts.
+- **Next:** bank statement import from CSV.

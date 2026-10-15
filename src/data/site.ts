@@ -1,6 +1,6 @@
 /**
  * Datos personales del portafolio.
- * ⚠️ Los valores marcados con MOCK son de ejemplo: reemplázalos por los tuyos.
+ * Importante: los valores marcados con MOCK son de ejemplo: reemplázalos por los tuyos.
  */
 import avatar from '../assets/mock/avatar.svg'; // MOCK: reemplaza por tu foto (p. ej. ../assets/profile.jpg)
 
