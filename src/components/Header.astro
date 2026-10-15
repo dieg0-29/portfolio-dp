@@ -1,0 +1,168 @@
+---
+import Icon from './ui/Icon.astro';
+import { localizePath, stripLang, useTranslations, type Lang } from '../i18n/ui';
+import { site } from '../data/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const home = localizePath('/', lang);
+const otherLang: Lang = lang === 'es' ? 'en' : 'es';
+const otherHref = localizePath(stripLang(Astro.url.pathname), otherLang);
+
+const links = [
+  { id: 'about', label: t('nav.about') },
+  { id: 'skills', label: t('nav.skills') },
+  { id: 'projects', label: t('nav.projects') },
+  { id: 'experience', label: t('nav.experience') },
+  { id: 'contact', label: t('nav.contact') },
+];
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-line/70 bg-bg/75 backdrop-blur-lg supports-[backdrop-filter]:bg-bg/60"
+>
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
+    <a href={home} class="group flex items-center gap-2.5 font-display text-lg font-bold" aria-label={site.name}>
+      <span
+        class="grid size-9 place-items-center rounded-xl bg-linear-to-br from-accent to-accent-2 text-sm font-extrabold text-accent-fg shadow-[0_0_24px_var(--glow)] transition-transform group-hover:scale-105"
+        aria-hidden="true">DP</span
+      >
+      <span class="hidden sm:inline">{site.name}</span>
+    </a>
+
+    <nav aria-label="Principal" class="hidden md:block">
+      <ul class="flex items-center gap-1">
+        {
+          links.map((l) => (
+            <li>
+              <a
+                href={`${home}#${l.id}`}
+                data-nav={l.id}
+                class="relative rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-fg aria-[current=true]:text-fg"
+              >
+                {l.label}
+                <span
+                  class="nav-indicator absolute inset-x-3 -bottom-px h-0.5 scale-x-0 rounded-full bg-linear-to-r from-accent to-accent-2 transition-transform"
+                  aria-hidden="true"
+                />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-1">
+      <a
+        href={otherHref}
+        hreflang={otherLang}
+        lang={otherLang}
+        class="flex h-10 items-center gap-1.5 rounded-lg px-3 text-sm font-semibold text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+        aria-label={t('lang.switch')}
+        title={t('lang.switch')}
+      >
+        <Icon name="globe" size={18} />
+        {otherLang.toUpperCase()}
+      </a>
+      <button
+        type="button"
+        id="theme-toggle"
+        class="grid size-10 place-items-center rounded-lg text-muted transition-colors hover:bg-surface-2 hover:text-fg"
+        aria-label={t('theme.toggle')}
+        title={t('theme.toggle')}
+      >
+        <Icon name="sun" class="hidden dark:block" />
+        <Icon name="moon" class="dark:hidden" />
+      </button>
+      <button
+        type="button"
+        id="menu-toggle"
+        class="grid size-10 place-items-center rounded-lg text-muted transition-colors hover:bg-surface-2 hover:text-fg md:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label={t('nav.menu')}
+        data-label-open={t('nav.menu')}
+        data-label-close={t('nav.close')}
+      >
+        <Icon name="menu" class="menu-open" />
+        <Icon name="x" class="menu-close hidden" />
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-nav" aria-label="Principal" class="hidden border-t border-line/70 md:hidden">
+    <ul class="mx-auto flex max-w-6xl flex-col px-5 py-3 sm:px-8">
+      {
+        links.map((l) => (
+          <li>
+            <a
+              href={`${home}#${l.id}`}
+              data-nav={l.id}
+              class="block rounded-lg px-3 py-3 font-medium text-muted transition-colors hover:bg-surface-2 hover:text-fg aria-[current=true]:text-accent"
+            >
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<style>
+  a[aria-current='true'] .nav-indicator {
+    transform: scaleX(1);
+  }
+</style>
+
+<script>
+  // Tema claro/oscuro
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    try {
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    } catch {}
+  });
+
+  // Menú móvil
+  const toggle = document.getElementById('menu-toggle');
+  const panel = document.getElementById('mobile-nav');
+  const setMenu = (open: boolean) => {
+    if (!toggle || !panel) return;
+    panel.classList.toggle('hidden', !open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', (open ? toggle.dataset.labelClose : toggle.dataset.labelOpen) ?? '');
+    toggle.querySelector('.menu-open')?.classList.toggle('hidden', open);
+    toggle.querySelector('.menu-close')?.classList.toggle('hidden', !open);
+  };
+  toggle?.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+  panel?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setMenu(false);
+  });
+
+  // Sección activa en la navegación
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>('[data-nav]');
+  const sections = [...new Set([...navLinks].map((a) => a.dataset.nav))]
+    .map((id) => (id ? document.getElementById(id) : null))
+    .filter((s): s is HTMLElement => s !== null);
+
+  if (sections.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          navLinks.forEach((a) =>
+            a.dataset.nav === entry.target.id ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current'),
+          );
+        }
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    sections.forEach((s) => io.observe(s));
+  }
+</script>

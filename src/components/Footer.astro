@@ -1,0 +1,48 @@
+---
+import Icon from './ui/Icon.astro';
+import { site } from '../data/site';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line/70">
+  <div
+    class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 text-sm text-muted sm:flex-row sm:px-8"
+  >
+    <p>© {year} {site.name}. {t('footer.built')}</p>
+    <div class="flex items-center gap-1">
+      <a
+        href={site.socials.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="grid size-10 place-items-center rounded-lg transition-colors hover:bg-surface-2 hover:text-fg"
+        aria-label="GitHub"
+      >
+        <Icon name="github" size={18} />
+      </a>
+      <a
+        href={site.socials.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="grid size-10 place-items-center rounded-lg transition-colors hover:bg-surface-2 hover:text-fg"
+        aria-label="LinkedIn"
+      >
+        <Icon name="linkedin" size={18} />
+      </a>
+      <a
+        href="#main"
+        class="ml-2 flex h-10 items-center gap-1.5 rounded-lg px-3 font-medium transition-colors hover:bg-surface-2 hover:text-fg"
+      >
+        <Icon name="arrow-up" size={16} />
+        {t('footer.top')}
+      </a>
+    </div>
+  </div>
+</footer>
